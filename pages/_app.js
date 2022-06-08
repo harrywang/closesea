@@ -7,6 +7,8 @@ function MyApp({ Component, pageProps }) {
     <div>
       <nav className="border-b p-6">
         <p className="text-4xl font-bold">CloseSea</p>
+        <p className="text-sm">The smallest NFT marketplace</p>
+
         <div className="flex mt-4">
           <Link href="/">
             <a className="mr-4 text-pink-500">
@@ -26,6 +28,11 @@ function MyApp({ Component, pageProps }) {
           <Link href="/dashboard">
             <a className="mr-6 text-pink-500">
               My Listed NFTs
+            </a>
+          </Link>
+          <Link href="https://harrywang.me/closesea">
+            <a className="mr-6 text-pink-500">
+              Docs
             </a>
           </Link>
         </div>

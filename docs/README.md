@@ -40,7 +40,7 @@ OpenSea related:
 - contract is at https://rinkeby.etherscan.io/address/0xc0d76419fdc4b8dFfcDF9Ae5b82967de89ff3D8F
 - the listing fee 0.025 is paid to the contract address, which can be transferred by the contract owner
 - `constructor() ERC721("CloseSea Collection", "CSC")` defines the Collection name shown on Opensea: https://testnets.opensea.io/collection/closesea-collection, use the same name and deploy again - V2, V3 will be added by OpenSea
-- it may take a while for the minted NFT to fully show on OpenSea. If the image won't show, click the Refresh Metadata button
+- it may take a while for the minted NFT to fully show on OpenSea. If the image won't show, click the Refresh Metadata button. You can use https://testnets-api.opensea.io/asset/{contract address}/{token id}/validate/ to validate the metadata for OpenSea, 200 means OK
 - text traits rarity (percentage) is calculated based on (the number of NFT having this trait)/(the total NFTs in this collection)
 - number traits is presented as the current NFT's value out of the largest value of all NFTs
 
@@ -71,7 +71,13 @@ npm install hardhat-gas-reporter --save-dev
 
 ```
 
-### Environment Variables
+You can run the tests in `/test/test.js` as follows:
+
+```
+npx hardhat test
+```
+
+## Environment Variables
 
 Create `.env` file in the root folder with the following environment variables - MAKE SURE to gitignore this file. 
 
@@ -95,20 +101,7 @@ NEXT_PUBLIC_ALCHEMY_URL_RINKEBY='https://eth-rinkeby.alchemyapi.io/v2/Iwj1xxxxx'
 NEXT_PUBLIC_ALCHEMY_URL_ETHEREUM='https://eth-mainnet.alchemyapi.io/v2/2Y8xxxxx'
 ```
 
-## Local Contract Tests
-
-You can run the tests in `/test/test.js` as follows:
-
-```
-npx hardhat test
-```
-
-## Contract Deployment
-
-Note: when you test locally, you need to run `npm run dev` again after you change the Environment Variables.
-
-
-# Test on Local Testnet
+## Test on Local Testnet
 
 
 Start a local test node (record the first account and the private key):
@@ -131,7 +124,7 @@ Setup the test account in MetaMask and switch to local network.
 
 Visit http://localhost:3000 to try.
 
-# Test on Rinkeby
+## Test on Rinkeby
 
 Deploy the contract on the rinkeby testnet. change the following in `.env`:
 
@@ -142,7 +135,7 @@ Deploy the contract on the rinkeby testnet. change the following in `.env`:
 ```
 npx hardhat run scripts/deploy.js --network rinkeby
 
-CloseSea deployed to: 0xF7993dDad8d1D06d310b54791E9ceae04F22C234
+CloseSea deployed to: 0xF7993dDad8d1D06d31xxx
 
 ```
 change teh RPC provider to rinkeby in `/pages/index.js`
@@ -157,15 +150,12 @@ Start the server:
 npm run dev
 ```
 
-Setup the test account in MetaMask and switch to local network.
+Setup the test account in MetaMask and switch to Rinkeby network.
 
 Visit http://localhost:3000 to try.
 
-https://testnets-api.opensea.io/asset/0xF7993dDad8d1D06d310b54791E9ceae04F22C234/1/validate/
 
-
-
-# Ethereum
+## Ethereum
 
 Deploy on Ethereum mainnet: change `NEXT_PUBLIC_ENVIRONMENT='ethereum'` and use some real ether:
 

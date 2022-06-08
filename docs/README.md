@@ -2,6 +2,10 @@
 
 CloseSea, the smallest NFT marketplace.
 
+Play with the demo at https://closesea-one.vercel.app/, which uses the contract deployed on [Rinkeby](https://rinkeby.etherscan.io/address/0xc0d76419fdc4b8dFfcDF9Ae5b82967de89ff3D8F) - you need to connect your wallet, switch to Rinkeby network, and use test Rinkeby eth to list and trade.
+
+The listed/minted NFTs can be seen at https://testnets.opensea.io/collection/closesea-collection
+
 Check the [Code Repo](https://github.com/harrywang/closesea)
 
 The followings are used in this project:

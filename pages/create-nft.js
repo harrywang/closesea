@@ -36,13 +36,48 @@ export default function CreateItem() {
   }
   async function uploadToIPFS() {
     const { name, description, price } = formInput
-    
-    //attributes = [{"trait_type":"background","value":"red"},{"trait_type":"type","value":"plain mfer"},{"trait_type":"eyes","value":"regular eyes"},{"trait_type":"mouth","value":"smile"},{"trait_type":"headphones","value":"black headphones"},{"trait_type":"hat under headphones","value":"cap monochrome"},{"trait_type":"shirt","value":"hoodie down white"}]
+    // random assign three traits for demo purposes
+    // two strings and one number
+    const colors = ["Red", "Yellow", "Blue", "Green"];
+    const color_len = colors?.length || 0;
+    const random_color = Math.floor(Math.random() * color_len);
+    const color = colors[random_color]
+    console.log(color);
+
+    const zodiac = ["Aries (Ram): March 21–April 19", "Taurus (Bull): April 20–May 20", "Gemini (Twins): May 21–June 21", "Cancer (Crab): June 22–July 22", "Leo (Lion): July 23–August 22", "Virgo (Virgin): August 23–September 22", "Libra (Balance): September 23–October 23", "Scorpius (Scorpion): October 24–November 21", "Sagittarius (Archer): November 22–December 21", "Capricornus (Goat): December 22–January 19", "Aquarius (Water Bearer): January 20–February 18", "Pisces (Fish): February 19–March 20"]
+    const zodiac_len = zodiac?.length || 0;
+    const random_zodiac = Math.floor(Math.random() * zodiac_len);
+    const z = zodiac[random_zodiac]
+    console.log(z);
+
+    const power = [3, 5, 6, 7, 9];
+    const power_len = power?.length || 0;
+    const random_power = Math.floor(Math.random() * power_len);
+    const p = power[random_power]
+    console.log(p);
+
+    const attributes =[
+      {
+        "trait_type": "Color", 
+        "value": color
+      }, 
+      {
+        "trait_type": "Zodiac", 
+        "value": z
+      },
+      {
+        "trait_type": "Power", 
+        "value": p
+      }
+    ]
+
     if (!name || !description || !price || !fileUrl) return
     /* first, upload metadata to IPFS */
     const data = JSON.stringify({
-      name, description, image: fileUrl
+      name, description, image: fileUrl, attributes
     })
+    console.log(data)
+
     try {
       const added = await client.add(data)
       const url = `https://ipfs.infura.io/ipfs/${added.path}`

@@ -1,6 +1,6 @@
 # About
 
-CloseSea, the smallest NFT marketplace
+CloseSea, the smallest NFT marketplace.
 
 Check the [Code Repo](https://github.com/harrywang/closesea)
 
@@ -15,26 +15,53 @@ The followings are used in this project:
 - Next.js
 - TailwindCSS
 
+Key points:
+
+Frontend '/pages/create-nft.js` does the following:
+- the image file to IPFS, 
+- generate the metadata (name, description, image file IPFS path, hardcoded traits) json file
+- upload the metadata json file to IPFS and generate the metadata URL
+- return the url
+
+Contract (`createToken` function in `contracts/CloseSea.sol`) does the following:
+
+- get the metadata URL
+- increase the token id by 1 `_tokenIds.increment();`
+- mint the NFT/Token `uint256 newTokenId = _tokenIds.current(); _mint(msg.sender, newTokenId);`
+- set the TokenURI to the metadata IPFS URL `_setTokenURI(newTokenId, tokenURI);`
+
+
+OpenSea related:
+
+- contract is at https://rinkeby.etherscan.io/address/0xc0d76419fdc4b8dFfcDF9Ae5b82967de89ff3D8F
+- the listing fee 0.025 is paid to the contract address, which can be transferred by the contract owner
+- `constructor() ERC721("CloseSea Collection", "CSC")` defines the Collection name shown on Opensea: https://testnets.opensea.io/collection/closesea-collection, use the same name and deploy again - V2, V3 will be added by OpenSea
+- it may take a while for the minted NFT to fully show on OpenSea. If the image won't show, click the Refresh Metadata button
+- text traits rarity (percentage) is calculated based on (the number of NFT having this trait)/(the total NFTs in this collection)
+- number traits is presented as the current NFT's value out of the largest value of all NFTs
+
+The following shows the traits are all 100% when only one NFT is minted:
+
+<img width="540" src="https://user-images.githubusercontent.com/595772/172514918-52b0278f-825d-4bd2-bf2b-76744edbc9eb.png">
+
+Then the second NFT is minted, the percentage changed: 
+
+<img width="544" src="https://user-images.githubusercontent.com/595772/172515715-e404becb-cbc4-495d-b706-1d63414f9d0f.png">
+
 
 ## Local Setup
 
 ```
 git clone https://github.com/harrywang/closesea.git
 cd closesea
-npm install next react react-dom
 
-npm install ethers hardhat @nomiclabs/hardhat-waffle \
+npm install next react react-dom ethers hardhat @nomiclabs/hardhat-waffle \
 ethereum-waffle chai @nomiclabs/hardhat-ethers \
-web3modal @openzeppelin/contracts ipfs-http-client \
-axios
+web3modal ipfs-http-client \
+axios @walletconnect/web3-provider @openzeppelin/contracts \
+tailwindcss@latest postcss@latest autoprefixer@latest dotenv
 
-npm install ethers hardhat @nomiclabs/hardhat-waffle \
-ethereum-waffle chai @nomiclabs/hardhat-ethers \
-web3modal @walletconnect/web3-provider @openzeppelin/contracts \
-tailwindcss@latest postcss@latest autoprefixer@latest @tailwindcss/typography \
-@headlessui/react@latest @heroicons/react react-icons dotenv
-
-npm install --save-dev @nomiclabs/hardhat-etherscan
+npm install @nomiclabs/hardhat-etherscan --save-dev
 
 npm install hardhat-gas-reporter --save-dev
 
@@ -45,8 +72,6 @@ npm install hardhat-gas-reporter --save-dev
 Create `.env` file in the root folder with the following environment variables - MAKE SURE to gitignore this file. 
 
 Note: you have to use `NEXT_PUBLIC_` prefix if you want to expose the environment variables to the browser: see [docs](https://nextjs.org/docs/basic-features/environment-variables).
-
-
 
 ```
 # private key for deploying the contract
@@ -134,56 +159,15 @@ Visit http://localhost:3000 to try.
 
 https://testnets-api.opensea.io/asset/0xF7993dDad8d1D06d310b54791E9ceae04F22C234/1/validate/
 
-fresh metadata button
-
-if you deploy the contract multiple times with the same token name, opensea shows V2, V3, etc.
 
 
-### Mumbai
-
-Deploy on Mumbai testnet:
-
-- get some test MATIC from https://faucet.polygon.technology/
-- Change the `.env` to `NEXT_PUBLIC_ENVIRONMENT='mumbai'` and run the following:
-- Change the private key of the Mumbai test account: `PRIVATE_KEY='0xaxxx'`
-
-```
-npx hardhat run scripts/deploy.js --network mumbai
-
-WrittenInStone deployed to: 0x5f804D0c7e195DF14E894fE871DD1991E30d0854
-```
-View deployed contact at https://mumbai.polygonscan.com/address/0x5f804D0c7e195DF14E894fE871DD1991E30d0854
-
-### Polygon
-
-Deploy on Polygon main network is essentially the same as on Mumbai - just need to change `NEXT_PUBLIC_ENVIRONMENT='polygon'` and use some real MATIC:
-
-```
-npx hardhat run scripts/deploy.js --network ploygon
-
-WrittenInStone deployed to: 0xa8578e0e64bBF0c27BF8a0DD3211889D34c31FAf
-```
-View deployed contact at https://polygonscan.com/address/0xa8578e0e64bBF0c27BF8a0DD3211889D34c31FAf
-
-MATIC is about $1.7 as of April 1, 2022.
-
-It used ~0.0377 MATIC to deploy to polygon, which is about 6 cents.
-
-It used ~0.0055 MATIC to write a message, which is about 1 cent.
-
-### Ethereum
+# Ethereum
 
 Deploy on Ethereum mainnet: change `NEXT_PUBLIC_ENVIRONMENT='ethereum'` and use some real ether:
 
 ```
 npx hardhat run scripts/deploy.js --network ethereum
-
-WrittenInStone deployed to: 0xA5a976B6950446e44B0dBc2515B4648E1DAa2014
 ```
-
-View deployed contact at https://etherscan.io/address/0xA5a976B6950446e44B0dBc2515B4648E1DAa2014
-
-It used ~0.0511 Ether to deploy to Ethereum, which is about $176.5 (Ether is about $3454 as of April 1, 2022)
 
 ## App Deployment
 

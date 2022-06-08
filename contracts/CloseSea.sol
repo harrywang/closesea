@@ -35,7 +35,7 @@ contract CloseSea is ERC721URIStorage {
       bool sold
     );
     /* this is the collection name: https://testnets.opensea.io/collection/closesea-tokens */
-    constructor() ERC721("CloseSea Tokens", "CST") {
+    constructor() ERC721("CloseSea Collection", "CSC") {
       owner = payable(msg.sender);
     }
 

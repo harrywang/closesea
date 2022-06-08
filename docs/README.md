@@ -8,6 +8,8 @@ The listed/minted NFTs can be seen at https://testnets.opensea.io/collection/clo
 
 Check the [Code Repo](https://github.com/harrywang/closesea)
 
+This demo is developed based on [How to Build a Full Stack NFT Marketplace](https://dev.to/edge-and-node/building-scalable-full-stack-apps-on-ethereum-with-polygon-2cfb).
+
 The followings are used in this project:
 
 - Solidity

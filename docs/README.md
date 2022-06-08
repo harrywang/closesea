@@ -21,7 +21,7 @@ The followings are used in this project:
 
 Key points:
 
-Frontend '/pages/create-nft.js` does the following:
+Frontend `/pages/create-nft.js` does the following:
 - the image file to IPFS, 
 - generate the metadata (name, description, image file IPFS path, hardcoded traits) json file
 - upload the metadata json file to IPFS and generate the metadata URL

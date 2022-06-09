@@ -30,6 +30,11 @@ function MyApp({ Component, pageProps }) {
               My Listed NFTs
             </a>
           </Link>
+          <Link href="/manage-contract">
+            <a className="mr-6 text-pink-500">
+              Manage Contract
+            </a>
+          </Link>
           <Link href="https://harrywang.me/closesea">
             <a className="mr-6 text-pink-500">
               Docs

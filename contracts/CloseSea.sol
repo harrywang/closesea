@@ -45,6 +45,13 @@ contract CloseSea is ERC721URIStorage {
       listingPrice = _listingPrice;
     }
 
+    /* Transfer the listing fee income from the contract */
+    function withdraw() public payable {
+        require(owner == msg.sender, "Only owner can withdraw.");
+        uint256 balance = address(this).balance;
+        payable(msg.sender).transfer(balance);
+    }
+
     /* Returns the listing price of the contract */
     function getListingPrice() public view returns (uint256) {
       return listingPrice;

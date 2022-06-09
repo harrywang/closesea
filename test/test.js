@@ -23,6 +23,9 @@ describe("CloseSea", function() {
     /* resell a token */
     await closesea.connect(buyerAddress).resellToken(1, auctionPrice, { value: listingPrice })
 
+    /* withdraw */
+    await closesea.withdraw()
+
     /* query for and return the unsold items */
     items = await closesea.fetchMarketItems()
     items = await Promise.all(items.map(async i => {

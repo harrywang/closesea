@@ -33,8 +33,7 @@ module.exports = {
   },
   etherscan: {
     // Your API key for verifying contract
-    // Obtain one at https://polygonscan.com
-    apiKey: process.env.POLYGONSCAN_API_KEY
+    apiKey: process.env.ETHERSCAN_API_KEY
   },
   gasReporter: {
     currency: 'USD',

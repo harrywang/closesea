@@ -28,6 +28,7 @@ Frontend `/pages/create-nft.js` does the following:
 - generate the metadata (name, description, image file IPFS path, hardcoded traits) json file
 - upload the metadata json file to IPFS and generate the metadata URL
 - return the url
+- `pages/manage-contract.js` is contract owner only. Used to change the listing fee and withdraw the listing fee income (an [error](https://user-images.githubusercontent.com/595772/172910166-85649db5-2bf3-40ac-86cc-ff24c2900724.png) is shown if not owner)
 
 Contract (`createToken` function in `contracts/CloseSea.sol`) does the following:
 
@@ -201,10 +202,10 @@ require("@nomiclabs/hardhat-etherscan");
 
 ```
 
-Then run the following with the DEPLOYED_CONTRACT_ADDRESS and "Constructor argument 1":
+Then run the following with the DEPLOYED_CONTRACT_ADDRESS
 
 ```
-npx hardhat verify --network polygon 0xa8578e0e64bbf0c27bf8a0dd3211889d34c31faf "weiwei"
+npx hardhat verify --network rinkeby 0xf8b580081eC9b00d6A43e29747BE3D19898a1961
 
 ...
 Nothing to compile
